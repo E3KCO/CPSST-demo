@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="act_project_events" model="ir.actions.act_window">
+        <field name="name">Évènements</field>
+        <field name="res_model">event.event</field>
+        <field name="view_mode">kanban,calendar,tree,form,pivot,graph</field>
+        <field name="domain">[('x_studio_many2one_field_oQRjs', '=', active_id)]</field>
+        <field name="search_view_id" ref="event.view_event_search"/>
+    </record>
+    <record id="edit_project_event_custom" model="ir.ui.view">
+        <field name="name">edit.project.event.custom</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']/button" position="after">
+                <button class="oe_stat_button" type="action" name="%(act_project_events)d" icon="fa-ticket" attrs="{'invisible': [('count_event', '=', 0)]}">
+                    <field string="Évènements" name="count_event" widget="statinfo"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
